@@ -27,13 +27,8 @@ public class DocumentProcessingService {
     }
 
     public String processDocument(File file) throws IOException {
-        // Read file content
         String content = readFileContent(file);
-
-        // Create embeddings
         List<Integer> embeddings = generateEmbeddings(content);
-
-        // Store embeddings in the vector database
         String assetId = storeInVectorDatabase(file.getName(), content);
 
         return assetId;
@@ -57,16 +52,12 @@ public class DocumentProcessingService {
     }
 
     public List<Integer> generateEmbeddings(String content) {
-        // Tokenize the text
         String[] words = content.toLowerCase().split("\\W+");
-
-        // Generate embeddings
         List<Integer> embeddings = new ArrayList<>();
         for (String word : words) {
             if (wordToIdMap.containsKey(word)) {
                 embeddings.add(wordToIdMap.get(word));
             } else {
-                // Assign a new unique ID to this word
                 wordToIdMap.put(word, currentId++);
                 embeddings.add(wordToIdMap.get(word));
             }
@@ -76,14 +67,13 @@ public class DocumentProcessingService {
     }
 
     public String storeInVectorDatabase(String documentId, String content) throws IOException {
-        // Define a FieldType with specific configurations
         FieldType idFieldType = new FieldType();
-        idFieldType.setStored(true);  // Store this field
-        idFieldType.setIndexOptions(IndexOptions.DOCS);  // Index the field for searching
+        idFieldType.setStored(true);
+        idFieldType.setIndexOptions(IndexOptions.DOCS);
 
         FieldType contentFieldType = new FieldType();
-        contentFieldType.setStored(false);  // Do not store this field
-        contentFieldType.setIndexOptions(IndexOptions.DOCS);  // Index the field for searching
+        contentFieldType.setStored(false);
+        contentFieldType.setIndexOptions(IndexOptions.DOCS);
 
         try (IndexWriter writer = new IndexWriter(indexDirectory, new IndexWriterConfig())) {
             Document doc = new Document();
