@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+
+        implementation enforcedPlatform("io.quarkus:quarkus-bom:2.16.7.Final")
+        implementation 'io.quarkus:quarkus-resteasy'
+        implementation 'io.quarkus:quarkus-resteasy-multipart'
+        implementation 'org.apache.pdfbox:pdfbox:2.0.27'
+        implementation 'org.apache.lucene:lucene-core:8.11.2'
+        implementation 'org.apache.lucene:lucene-analyzers-common:8.11.2'
+        testImplementation 'io.quarkus:quarkus-junit5'
+        testImplementation 'io.rest-assured:rest-assured'
+    implementation "io.quarkus:quarkus-resteasy"
+    implementation "io.quarkus:quarkus-resteasy-multipart"
+    implementation "io.quarkus:quarkus-jackson"
+    testImplementation "io.quarkus:quarkus-junit5"
+    testImplementation "io.rest-assured:rest-assured"
+    implementation 'io.vertx:vertx-core:4.4.2'
+    implementation enforcedPlatform("com.fasterxml.jackson:jackson-bom:2.14.2") // Make sure this version is compatible
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.core:jackson-core'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations'
+}
+
+group 'org.acme'
+version '1.0.0-SNAPSHOT'
+
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
