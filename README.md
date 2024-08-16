@@ -26,6 +26,51 @@ Tech Stack Used -
   ```bash
    ./gradlew quarkusDev
 
+## API Documentation
+
+### Start Chat 
+-Endpoint: `POST /api/chat/start`
+-Sample Request : 
+```json
+{
+  "assetId": "67f8e3e3-a11e-4930-943e-f03ab696d82d"
+}
+```
+- Sample Response :
+```json
+{
+  "chatThreadId": "123456",
+  "message": "How can I help you?"
+}
+```
+
+## Send Message 
+- Endpoint : `POST /api/chat/message`
+- Sample Request:
+  ```json
+  {
+  "chatThreadId": "123456",
+  "userMessage": "User question"
+  }
+  ```
+- Sample Response:
+  ```json
+  {
+  "agentResponse": "the chatbot's response string"
+  }
+  ```
+
+
+## Potential Improvements
+- Adding authentication methods e.g JWT/OAuth to secure the API endpoints
+- Adding Unit Tests to improve error handling and code failure
+- Storing the chat history for user's comfort
+- Dockerisation of all things for smooth development across teams
+- Better implementation of services in terms of Scalability
+
+## Problems Faced
+- Python should have been way easier , but my fimilarity with Java pushed me to deploy the project in Java , the second half (LangChain based chatbot) is a difficult thing to do in Java
+- In Java also SpringBoot is more common and developer friendly in terms of community support , it was difficult to look for Quarkus doubts on internet
 
 
 
