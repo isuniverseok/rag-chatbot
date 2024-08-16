@@ -44,7 +44,7 @@ Tech Stack Used -
 }
 ```
 
-## Send Message 
+### Send Message 
 - Endpoint : `POST /api/chat/message`
 - Sample Request:
   ```json
